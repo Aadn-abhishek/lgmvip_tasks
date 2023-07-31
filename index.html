@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #0096f45e;
+      }
+
+      .container {
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #35769c;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #33a7f9;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-image: url("https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?size=626&ext=jpg&ga=GA1.2.1638281978.1690185501&semt=ais");
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .form-group input[type="text"],
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .form-group input[type="integer"],
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .form-group select {
+        height: 40px;
+      }
+
+      .form-group button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      .form-group button:hover {
+        background-color: #4961d9;
+      }
+
+      #registeredStudent {
+        display: none;
+        background-color: #eaf2f8;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      #registeredStudent h2 {
+        margin-top: 0;
+      }
+
+      #registeredStudent p {
+        margin-bottom: 5px;
+      }
+
+      #totalEnrolled {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>-----------------------STUDENT REGISTRATION FORM-----------------------</h1>
+      <form id="enrollmentForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="registration_number">Registration_No:</label>
+          <input type="integer" id="registration_number" required />
+        </div>
+        <div class="form-group">
+          <label for="course">Course:</label>
+          <select id="course" required>
+            <option value="">-- Select Course --</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Diploma">Diploma</option>
+            <option value="MBA">MBA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="semester">Semester:</label>
+          <select id="semester" required>
+            <option value="">-- Select Semester --</option>
+            <option value="1">1st Semester</option>
+            <option value="2">2nd Semester</option>
+            <option value="3">3rd Semester</option>
+            <option value="4">4th Semester</option>
+            <option value="5">5th Semester</option>
+            <option value="6">6th Semester</option>
+            <option value="7">7th Semester</option>
+            <option value="8">8th Semester</option>
+
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit">register</button>
+        </div>
+      </form>
+
+      <div id="enrolledStudent">
+        <h2>Registered Student Information</h2>
+        <div id="studentList"></div>
+      </div>
+
+      <div id="totalEnrolled"></div>
+
+      <script>
+        const enrollmentForm = document.getElementById("enrollmentForm");
+        const enrolledStudent = document.getElementById("enrolledStudent");
+        const studentList = document.getElementById("studentList");
+        const totalEnrolled = document.getElementById("totalEnrolled");
+        let enrolledCount = 0;
+
+        enrollmentForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const registration_number = document.getElementById("registration_number").value;
+          const course = document.getElementById("course").value;
+          const semester = document.getElementById("semester").value;
+
+          const studentInfo = document.createElement("div");
+          studentInfo.classList.add("student-info");
+
+          const studentName = document.createElement("p");
+          studentName.innerHTML = `<strong>Name:</strong> ${name}`;
+          studentInfo.appendChild(studentName);
+
+          const studentEmail = document.createElement("p");
+          studentEmail.innerHTML = `<strong>Email:</strong> ${email}`;
+          studentInfo.appendChild(studentEmail);
+
+          const studentRegistration_No = document.createElement("p");
+          studentRegistration_No.innerHTML = `<strong>Registration_No:</strong> ${registration_number}`;
+          studentInfo.appendChild(studentRegistration_No);
+
+
+          const studentCourse = document.createElement("p");
+          studentCourse.innerHTML = `<strong>Course:</strong> ${course}`;
+          studentInfo.appendChild(studentCourse);
+
+          const studentSemester = document.createElement("p");
+          studentSemester.innerHTML = `<strong>Semester:</strong> ${semester}`;
+          studentInfo.appendChild(studentSemester);
+
+          studentList.appendChild(studentInfo);
+
+          const lineBreak = document.createElement("hr");
+          studentList.appendChild(lineBreak); 
+          enrolledCount++;
+          totalEnrolled.textContent = `Total Students Enrolled: ${enrolledCount}`;
+
+          enrollmentForm.reset();
+          enrolledStudent.style.display = "block";
+        });
+      </script>
+    </div>
+   </body>
+</html>
+
+
+           
+            
+            
+          
